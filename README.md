@@ -1,4 +1,6 @@
-This is a simple personal summary from my owasp studies from [OWASP Top 10 Proactive Controls](https://top10proactive.owasp.org/) so I can easily index and remeber some topics
+This is a simple personal summary from my owasp studies from [OWASP Top 10 Proactive Controls](https://top10proactive.owasp.org/) so I can easily index and remeber some topics.
+
+TODO: project to consolidate everything.
 
 1. Implement Access Control
 	- Role Based Access Control (RBAC)

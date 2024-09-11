@@ -1,0 +1,14 @@
+- It must have a ABAC approach for authorization
+- It must contain OAuth2 implementation
+- It must implement e2e encryption to sensitive data
+- It must include input validation
+- It must have logging 
+- It must contain headers for security
+- It must apply [GitRob](https://github.com/michenriksen/gitrob) or [TruffleHog](https://github.com/trufflesecurity/trufflehog) for repo analysis
+- It must use a secret management of some kind ([HarshiCorp Vault](https://www.hashicorp.com/products/vault) or [AWS Secret Manager](https://docs.aws.amazon.com/pt_br/secretsmanager/latest/userguide/intro.html))
+- It must be able to handle key rotations / key rollover
+- It must have Rate limiting
+- It must implement Static Application Security Testing (SAST) and Software composition analysis 
+- Implement Password Rotation
+- It must have a CI/CD pipeline
+- Implement [OWASP Zap](https://www.zaproxy.org/) on CI/CD Pipeline

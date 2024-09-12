@@ -1,4 +1,5 @@
 - It must have a ABAC approach for authorization
+	- Use [CASL](https://casl.js.org/v6/en)
 - It must contain OAuth2 implementation
 - It must implement e2e encryption to sensitive data
 - It must include input validation

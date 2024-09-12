@@ -1,0 +1,38 @@
+{
+  "name": "Owasp Project",
+  "runArgs": ["--env-file", ".devcontainer/.env", "--name", "vscode-owasp"],
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "terraform.languageServer": {
+          "enabled": true,
+          "args": ["serve"]
+        }
+      },
+      "extensions": [
+        "github.copilot",
+        "github.vscode-github-actions",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "orta.vscode-jest",
+        "naumovs.color-highlight",
+        "ms-azuretools.vscode-docker",
+        "editorconfig.editorconfig",
+        "vscodevim.vim",
+        "mikestead.dotenv",
+        "github.copilot-chat",
+        "eamodio.gitlens",
+        "wix.vscode-import-cost",
+        "miguelsolorio.min-theme",
+        "miguelsolorio.symbols"
+      ]
+    }
+  }
+}

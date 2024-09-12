@@ -1,0 +1,14 @@
+services:
+  app:
+    network_mode: host
+    container_name: owasp-app
+    command:
+      - sh
+      - -c
+      - pnpm i && pnpm dev
+    build:
+      context: app
+      dockerfile: Dockerfile.dev
+    image: owasp-app
+    volumes:
+      - ./app:/app

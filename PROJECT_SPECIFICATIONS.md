@@ -5,6 +5,8 @@ It is also possible to ban a user from a workspace
 
 # Technologies
 
+- Turbo Repo
+- NestJS
 - [Next.js 14](https://nextjs.org/)
   - [NextAuth.js](https://next-auth.js.org/)
   - [next-safe-action](https://next-safe-action.dev/)

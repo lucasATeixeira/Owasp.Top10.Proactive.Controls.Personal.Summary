@@ -5,13 +5,16 @@ It is also possible to ban a user from a workspace
 
 # Technologies
 
-- Next.js 14
-- PostgreSQL
-- CASL
+- [Next.js 14](https://nextjs.org/)
+  - [NextAuth.js](https://next-auth.js.org/)
+  - [next-safe-action](https://next-safe-action.dev/)
+- PostgreSQL with [Kysely](https://kysely.dev)
+- [CASL](https://casl.js.org/v6/en)
 - GitRob
 - HarshiCorp Vault
 - OWASP Zap
 - Github actions
+- Crypto
 
 # Data modeling
 
@@ -96,15 +99,20 @@ Posts from workspace
 
 - It must have a ABAC approach for authorization
   - Use [CASL](https://casl.js.org/v6/en)
-- It must contain OAuth2 implementation
+- It must contain OAuth2 implementation?
+  - [NextAuth.js](https://next-auth.js.org/)
 - Implement Password Rotation
-- It must implement e2e encryption to sensitive data
+- It must implement encryption to sensitive data
+  - Simetric encryption
+  - Store key on environment variable or secret management
+  - Store iv with data itself
+- It must be able to handle key rotations
+  - [Envelop encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping)
 - It must include input validation
 - It must have logging
 - It must contain headers for security
 - It must apply [GitRob](https://github.com/michenriksen/gitrob) or [TruffleHog](https://github.com/trufflesecurity/trufflehog) for repo analysis
 - It must use a secret management of some kind ([HarshiCorp Vault](https://www.hashicorp.com/products/vault) or [AWS Secret Manager](https://docs.aws.amazon.com/pt_br/secretsmanager/latest/userguide/intro.html))
-- It must be able to handle key rotations / key rollover
 - It must have Rate limiting
 - It must implement Static Application Security Testing (SAST) and Software composition analysis
 - It must have a CI/CD pipeline

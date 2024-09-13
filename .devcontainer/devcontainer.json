@@ -31,7 +31,8 @@
         "eamodio.gitlens",
         "wix.vscode-import-cost",
         "miguelsolorio.min-theme",
-        "miguelsolorio.symbols"
+        "miguelsolorio.symbols",
+        "yoavbls.pretty-ts-errors"
       ]
     }
   }

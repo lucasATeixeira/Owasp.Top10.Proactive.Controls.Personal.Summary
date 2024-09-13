@@ -11,11 +11,11 @@ RUN apt-get install -y tzdata curl unzip groff less keyboard-configuration && \
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && ./aws/install
 
-# INSTALLING NODE, PNPM, ESLINT, NEST
+# INSTALLING NODE, PNPM, ESLINT, TURBOREPO
 RUN sudo apt-get install -y ca-certificates curl gnupg && \
     sudo mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list && \
     sudo apt-get update -y && \
     sudo apt-get install -y nodejs && \
-    npm install -g eslint pnpm
+    npm install -g eslint pnpm turbo @nestjs/cli

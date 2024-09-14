@@ -9,13 +9,18 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["./*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "strict": true, // Enable all strict type-checking options
+    "strictNullChecks": true, // Enables strict null checks
+    "strictBindCallApply": true, // Ensures correct 'this' for functions
+    "forceConsistentCasingInFileNames": true, // Enforces consistent casing
+    "noFallthroughCasesInSwitch": true, // Ensures no fallthrough cases in switch statements
+    "esModuleInterop": true // Ensures commonJS and ES modules interop
+  },
+  "exclude": ["node_modules", "dist"] // Ensure distribution and dependencies are not included in compilation
 }

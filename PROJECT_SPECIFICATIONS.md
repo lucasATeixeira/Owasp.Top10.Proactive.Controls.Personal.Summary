@@ -6,17 +6,23 @@ It is also possible to ban a user from a workspace
 # Technologies
 
 - Turbo Repo
-- NestJS
-- [Next.js 14](https://nextjs.org/)
+- API
+  - NestJS
+  - [Kysely](https://kysely.dev) ORM with Prisma for Schema management
+  - SQLite
+  - Crypto for encryption
+- Web
+  - [Next.js 14](https://nextjs.org/)
   - [NextAuth.js](https://next-auth.js.org/)
   - [next-safe-action](https://next-safe-action.dev/)
-- PostgreSQL with [Kysely](https://kysely.dev)
-- [CASL](https://casl.js.org/v6/en)
-- GitRob
-- HarshiCorp Vault
-- OWASP Zap
-- Github actions
-- Crypto
+  - Shadcn UI
+- Authorization management
+  - [CASL](https://casl.js.org/v6/en)
+- Automation
+  - Github actions
+  - GitRob
+  - HarshiCorp Vault
+  - OWASP Zap
 
 # Data modeling
 

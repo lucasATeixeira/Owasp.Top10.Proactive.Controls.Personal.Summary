@@ -35,7 +35,8 @@
         "miguelsolorio.min-theme",
         "miguelsolorio.symbols",
         "yoavbls.pretty-ts-errors",
-        "supermaven.supermaven"
+        "supermaven.supermaven",
+        "prisma.prisma"
       ]
     }
   }

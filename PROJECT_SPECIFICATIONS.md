@@ -24,11 +24,13 @@ It is also possible to ban a user from a workspace
 
 Represents a user inside the system
 
-| Field   | Type   | Description                   |
-| ------- | ------ | ----------------------------- |
-| `id`    | UUID   | Unique identifier             |
-| `name`  | String | Full name of the user         |
-| `email` | String | User's email address (unique) |
+| Field                 | Type   | Description                       |
+| --------------------- | ------ | --------------------------------- |
+| `id`                  | UUID   | Unique identifier                 |
+| `name`                | String | Full name of the user             |
+| `email`               | String | User's email address (unique)     |
+| `password`            | String | Users's password                  |
+| `passwordLastChanged` | Date   | Last Time a user changed password |
 
 ## 2. Workspace
 
@@ -90,12 +92,14 @@ Posts from workspace
 
 ## Business Rules
 
-- User can register using email and password
+- User can register using email and password.
 - Users can subscribe to a workspace unless they are banned.
 - Users can create new workspaces.
 - Admins can set workspace policies for each user role.
 - Users can create, read, update, and delete posts in a workspace, based on their role and workspace policies.
 - Users with the appropriate permissions can ban other users.
+- Users must update their passwords at least once every 30 days. The system should restrict access to certain features if the password is older than 30 days.\*\*
+- Users nearing password expiry should be notified at regular intervals (e.g., one week before expiry and one day before expiry).\*\*
 
 ## Infra Rules
 

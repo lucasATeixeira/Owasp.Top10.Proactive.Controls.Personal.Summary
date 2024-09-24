@@ -1,19 +1,21 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
+    "lib": ["es2023"],
+    "target": "ES2022",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./src",
+    "rootDir": "./src",
     "paths": {
       "~/*": ["./*"]
     },
-    "incremental": true,
+    "incremental": false,
     "skipLibCheck": true,
     "strict": true, // Enable all strict type-checking options
     "strictNullChecks": true, // Enables strict null checks
@@ -22,5 +24,6 @@
     "noFallthroughCasesInSwitch": true, // Ensures no fallthrough cases in switch statements
     "esModuleInterop": true // Ensures commonJS and ES modules interop
   },
+  "include": ["src"],
   "exclude": ["node_modules", "dist"] // Ensure distribution and dependencies are not included in compilation
 }

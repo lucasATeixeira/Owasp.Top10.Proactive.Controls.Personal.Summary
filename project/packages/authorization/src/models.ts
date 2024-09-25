@@ -27,3 +27,10 @@ export const workspacePoliciesSchema = z.object({
 });
 
 export type WorkspacePolicies = z.infer<typeof workspacePoliciesSchema>;
+
+export const workspaceSchema = z.object({
+  __typename: z.literal("Workspace").default("Workspace"),
+  id: z.string(),
+});
+
+export type Workspace = z.infer<typeof workspaceSchema>;

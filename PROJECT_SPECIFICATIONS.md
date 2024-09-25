@@ -43,11 +43,12 @@ Represents a user inside the system
 
 Represents a workspace which users can post and/or read other users posts
 
-| Field  | Type   | Description                    |
-| ------ | ------ | ------------------------------ |
-| `id`   | UUID   | Unique identifier              |
-| `name` | String | Full name of the Workspace     |
-| `slug` | String | slug of the workspace (Unique) |
+| Field     | Type   | Description                    |
+| --------- | ------ | ------------------------------ |
+| `id`      | UUID   | Unique identifier              |
+| `name`    | String | Full name of the Workspace     |
+| `slug`    | String | slug of the workspace (Unique) |
+| `ownerId` | UUID   | User ID of the workspace owner |
 
 ## Workspace Role
 
@@ -59,17 +60,16 @@ Represents a role for a workspace
 | `workspaceId` | UUID   | WorkspaceId                     |
 | `name`        | String | Full name of the Workspace Role |
 
-## Workspace Ownership
+## Workspace membership
 
-Indicates what type of ownership a user has in a workspace
+Indicates what type of membership a user has in a workspace
 
-| Field         | Type    | Description                           |
-| ------------- | ------- | ------------------------------------- | -------- |
-| `id`          | UUID    | Unique identifier                     |
-| `userId`      | UUID    | User ID                               |
-| `workspaceId` | UUID    | workspace ID                          |
-| `roleId`      | UUID    | Which role user has in this workspace | nullable |
-| `owner`       | Boolean | Is user owner of workspace?           |
+| Field         | Type | Description                           |
+| ------------- | ---- | ------------------------------------- | -------- |
+| `id`          | UUID | Unique identifier                     |
+| `userId`      | UUID | User ID                               |
+| `workspaceId` | UUID | workspace ID                          |
+| `roleId`      | UUID | Which role user has in this workspace | nullable |
 
 ## Workspace Policies
 
@@ -114,12 +114,14 @@ Posts from workspace
 - Users must update their passwords at least once every 30 days. The system should restrict access to certain features if the password is older than 30 days.\*\*
 - Users nearing password expiry should be notified at regular intervals (e.g., one week before expiry and one day before expiry).\*\*
 - Users can create new workspaces.
-- When a user creates a workspace he will have a workspace ownership record in the database with null roleId and owner true.
+- When a user creates a workspace he will have a workspace membership record in the database with null roleId and owner true.
 - Workspace Owners can set workspace policies for each user role.
 - When a workspace is created it must be created a workspace policy with null roleId with default permissions.
+- User cant create a workspace policy with empty roleId
+- When creating a Workspace Role it must create a policy that is duplicated with the default permissions
 - It is not possible to remove the default workspace policy (the one with null roleId)
 - Users can subscribe to a workspace unless they are banned.
-- When a user subscribe to a workspace he will have a workspace ownership record in the database with null roleId.
+- When a user subscribe to a workspace he will have a workspace membership record in the database with null roleId.
 - Users can create, read, update, and delete posts in a workspace, based on their role and workspace policies.
 - Users with the appropriate permissions can ban other users.
 

@@ -1,11 +1,11 @@
 import { AbilityBuilder } from "@casl/ability";
-import { User, WorkspaceOwnership, WorkspacePolicies } from "./models";
+import { User, WorkspaceMembership, WorkspacePolicies } from "./models";
 import { AppAbility } from ".";
 import { Role } from "./roles";
 
 type PermissionsByRole = (props: {
   user: User;
-  workspaceOwnership?: WorkspaceOwnership;
+  workspaceMembership?: WorkspaceMembership;
   workspacePolicies?: WorkspacePolicies;
   builder: AbilityBuilder<AppAbility>;
 }) => void;
@@ -23,16 +23,16 @@ export const permissions: Record<Role, PermissionsByRole> = {
 
     can("get", "Workspace");
   },
-  PRO_USER: ({ user, builder, workspaceOwnership }) => {
+  PRO_USER: ({ user, builder, workspaceMembership }) => {
     const { can } = builder;
     // PRO USER CAN DO WATHEVER THE USER CAN PLUS SOME EXTRAS
     permissions.USER({
       user,
       builder,
-      workspaceOwnership,
+      workspaceMembership,
     });
 
-    if (workspaceOwnership?.owner) {
+    if (workspaceMembership?.owner) {
       can("manage", "Workspace");
     }
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { User, WorkspaceOwnership, WorkspacePolicies } from "./models";
+import { User, WorkspaceMembership, WorkspacePolicies } from "./models";
 import {
   AbilityBuilder,
   CreateAbility,
@@ -23,11 +23,11 @@ const createAppAbility = createMongoAbility as CreateAbility<AppAbility>;
 
 export function defineAbilityFor({
   user,
-  workspaceOwnership,
+  workspaceMembership,
   workspacePolicies,
 }: {
   user: User;
-  workspaceOwnership?: WorkspaceOwnership;
+  workspaceMembership?: WorkspaceMembership;
   workspacePolicies?: WorkspacePolicies;
 }) {
   const builder = new AbilityBuilder(createAppAbility);
@@ -39,7 +39,7 @@ export function defineAbilityFor({
   permissions[user.role]({
     user,
     builder,
-    workspaceOwnership,
+    workspaceMembership,
     workspacePolicies,
   });
 

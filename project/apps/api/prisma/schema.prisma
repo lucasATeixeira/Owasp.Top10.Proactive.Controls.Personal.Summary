@@ -24,8 +24,57 @@ model User {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
+  role String
   password  String
   passwordLastChanged DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  workspaces Workspace[]
+  memberships WorkspaceMembership[]
+}
+
+model Workspace {
+  id        String   @id @default(uuid())
+  ownerId   String
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  owner User @relation(fields: [ownerId], references: [id])
+  roles WorkspaceRole[]
+  members WorkspaceMembership[] 
+  policies WorkspacePolicy[]
+}
+
+model WorkspaceRole {
+  id        String   @id @default(uuid())
+  workspaceId String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  permissions WorkspacePolicy[]
+}
+
+model WorkspaceMembership {
+  id        String   @id @default(uuid())
+  userId    String
+  workspaceId String
+  roleId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}
+
+model WorkspacePolicy {
+  id        String   @id @default(uuid())
+  workspaceId String
+  roleId   String? 
+  domain String // POST
+  permissions String? // manage, create, get, update, delete
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  role WorkspaceRole? @relation(fields: [roleId], references: [id])
 }

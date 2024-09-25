@@ -9,7 +9,7 @@ export const userSchema = z.object({
 
 export type User = z.infer<typeof userSchema>;
 
-export const workspaceOwnershipSchema = z.object({
+export const workspaceMembershipSchema = z.object({
   id: z.string(),
   userId: z.string(),
   workspaceId: z.string(),
@@ -17,7 +17,7 @@ export const workspaceOwnershipSchema = z.object({
   owner: z.boolean(),
 });
 
-export type WorkspaceOwnership = z.infer<typeof workspaceOwnershipSchema>;
+export type WorkspaceMembership = z.infer<typeof workspaceMembershipSchema>;
 
 export const workspacePoliciesSchema = z.object({
   id: z.string(),

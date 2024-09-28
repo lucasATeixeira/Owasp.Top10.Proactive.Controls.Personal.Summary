@@ -20,10 +20,11 @@
     "strict": true, // Enable all strict type-checking options
     "strictNullChecks": true, // Enables strict null checks
     "strictBindCallApply": true, // Ensures correct 'this' for functions
+    "strictPropertyInitialization": false,
     "forceConsistentCasingInFileNames": true, // Enforces consistent casing
     "noFallthroughCasesInSwitch": true, // Ensures no fallthrough cases in switch statements
     "esModuleInterop": true // Ensures commonJS and ES modules interop
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"] // Ensure distribution and dependencies are not included in compilation
 }

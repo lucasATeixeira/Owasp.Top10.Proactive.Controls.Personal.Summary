@@ -1,10 +1,16 @@
 import { DB } from './types';
-// @ts-expect-error this lib is not typed
-import SQLite from 'better-sqlite3';
-import { Kysely, SqliteDialect } from 'kysely';
+import { Pool } from 'pg';
+import { Kysely, PostgresDialect } from 'kysely';
 
-const dialect = new SqliteDialect({
-  database: new SQLite('src/db/database.db'),
+const dialect = new PostgresDialect({
+  pool: new Pool({
+    database: process.env.DATABASE_DB || 'owasp',
+    password: process.env.DATABASE_PASSWORD || 'admin',
+    user: process.env.DATABASE_USER || 'admin',
+    host: process.env.DATABASE_HOST || 'localhost',
+    port: Number(process.env.DATABASE_PORT || '5432'),
+    max: 10,
+  }),
 });
 
 export const db = new Kysely<DB>({

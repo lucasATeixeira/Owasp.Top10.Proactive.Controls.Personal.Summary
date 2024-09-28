@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "src",
+    "rootDir": "src",
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "incremental": false,
+    "skipLibCheck": true,
+    "strict": true, // Enable all strict type-checking options
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+    // "strictNullChecks": true, // Enables strict null checks
+    // "strictBindCallApply": true, // Ensures correct 'this' for functions
+    // "forceConsistentCasingInFileNames": true, // Enforces consistent casing
+    // "noFallthroughCasesInSwitch": true, // Ensures no fallthrough cases in switch statements
+    // "esModuleInterop": true // Ensures commonJS and ES modules interop
+  },
+  "exclude": ["node_modules", "dist"], // Ensure distribution and dependencies are not included in compilation
+  "include": ["src"]
+}

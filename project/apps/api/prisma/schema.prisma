@@ -12,34 +12,47 @@ generator kysely {
     output = "../src/db"
     fileName = "types.ts"
     // Optionally generate runtime enums to a separate file
-     enumFileName = "enums.ts"
+    enumFileName = "enums.ts"
+    readOnlyIds = true
+    
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:../src/db/database.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  PRO_USER
+  USER
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String   @id  
   name      String
   email     String   @unique
-  role String
+  role Role
   password  String
-  passwordLastChanged DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  /// @kyselyType(Date)
+  passwordLastChanged DateTime 
+  /// @kyselyType(Date)
+  createdAt DateTime  
+  /// @kyselyType(Date)
+  updatedAt DateTime  
   workspaces Workspace[]
   memberships WorkspaceMembership[]
 }
 
 model Workspace {
-  id        String   @id @default(uuid())
+  id        String   @id  
   ownerId   String
   name      String
   slug      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  /// @kyselyType(Date)
+  createdAt DateTime 
+  /// @kyselyType(Date)
+  updatedAt DateTime  
   owner User @relation(fields: [ownerId], references: [id])
   roles WorkspaceRole[]
   members WorkspaceMembership[] 
@@ -47,34 +60,40 @@ model Workspace {
 }
 
 model WorkspaceRole {
-  id        String   @id @default(uuid())
+  id        String   @id  
   workspaceId String
   name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  /// @kyselyType(Date)
+  createdAt DateTime 
+  /// @kyselyType(Date)
+  updatedAt DateTime  
   workspace Workspace @relation(fields: [workspaceId], references: [id])
   permissions WorkspacePolicy[]
 }
 
 model WorkspaceMembership {
-  id        String   @id @default(uuid())
+  id        String   @id  
   userId    String
   workspaceId String
   roleId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  /// @kyselyType(Date)
+  createdAt DateTime 
+  /// @kyselyType(Date)
+  updatedAt DateTime  
   workspace Workspace @relation(fields: [workspaceId], references: [id])
   user User @relation(fields: [userId], references: [id])
 }
 
 model WorkspacePolicy {
-  id        String   @id @default(uuid())
+  id        String   @id  
   workspaceId String
   roleId   String? 
   domain String // POST
   permissions String? // manage, create, get, update, delete
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  /// @kyselyType(Date)
+  createdAt DateTime 
+  /// @kyselyType(Date)
+  updatedAt DateTime  
   workspace Workspace @relation(fields: [workspaceId], references: [id])
   role WorkspaceRole? @relation(fields: [roleId], references: [id])
 }

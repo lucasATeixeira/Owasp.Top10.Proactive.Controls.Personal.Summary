@@ -3,6 +3,7 @@ import { validateIfPasswordIsStrong } from '@repo/utils';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { User } from '~/db/types';
 import { UsersRepository } from './repositories/users.repository';
+import bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -26,8 +27,11 @@ export class UsersService {
       throw new HttpException('Email already in use', 400);
     }
 
+    const hashedPassword = await bcrypt.hash(password, bcrypt.genSaltSync());
+
     return this.usersRepository.create({
       ...registerUserDto,
+      password: hashedPassword,
       role: 'USER',
     });
   }

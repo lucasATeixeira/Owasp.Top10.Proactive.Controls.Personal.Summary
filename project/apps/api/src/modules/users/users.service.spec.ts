@@ -31,6 +31,15 @@ describe('UsersService', () => {
 
         expect(user.role).toBeDefined();
       });
+      it('should hash the password', async () => {
+        const user = await usersService.register({
+          email: 'test@test.com',
+          name: 'Test',
+          password: STRONG_PASSWORD,
+        });
+
+        expect(user.password).not.toBe(STRONG_PASSWORD);
+      });
     });
 
     describe('When try to register with an existing email', () => {
@@ -59,7 +68,9 @@ describe('UsersService', () => {
             name: 'Test',
             password: 'Abcd123',
           }),
-        ).rejects.toThrow('Password must be strong');
+        ).rejects.toThrow(
+          'Week password, your password must meet the following criteria: At least 8 characters in length, At least one uppercase letter (A-Z), At least one lowercase letter (a-z), At least one digit (0-9), At least one special character (@, $, !, %, *, ?, &)',
+        );
       });
     });
   });

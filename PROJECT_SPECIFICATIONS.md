@@ -111,6 +111,7 @@ Posts from workspace
 ## Business Rules
 
 - User must have one of the following roles: ADMIN, PRO_USER, USER
+- Dont return the password in the response
 - User can register using email and password.
 - Users must update their passwords at least once every 30 days. The system should restrict access to certain features if the password is older than 30 days.\*\*
 - Users nearing password expiry should be notified at regular intervals (e.g., one week before expiry and one day before expiry).\*\*

@@ -31,14 +31,14 @@ describe('UsersService', () => {
 
         expect(user.role).toBeDefined();
       });
-      it('should hash the password', async () => {
+      it('should not return the password', async () => {
         const user = await usersService.register({
           email: 'test@test.com',
           name: 'Test',
           password: STRONG_PASSWORD,
         });
 
-        expect(user.password).not.toBe(STRONG_PASSWORD);
+        expect(user.password).not.toBeDefined();
       });
     });
 

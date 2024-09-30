@@ -29,10 +29,15 @@ export class UsersService {
 
     const hashedPassword = await bcrypt.hash(password, bcrypt.genSaltSync());
 
-    return this.usersRepository.create({
+    const user = await this.usersRepository.create({
       ...registerUserDto,
       password: hashedPassword,
       role: 'USER',
     });
+
+    // @ts-expect-error this is a private field
+    delete user.password;
+
+    return user;
   }
 }

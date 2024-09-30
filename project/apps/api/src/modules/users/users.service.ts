@@ -35,9 +35,15 @@ export class UsersService {
       role: 'USER',
     });
 
-    // @ts-expect-error this is a private field
-    delete user.password;
+    // We do a copy of the user to avoid exposing the password and avoid removing
+    // password from memory repository
+    const response = {
+      ...user,
+    };
 
-    return user;
+    // @ts-expect-error this is a private field
+    delete response.password;
+
+    return response;
   }
 }

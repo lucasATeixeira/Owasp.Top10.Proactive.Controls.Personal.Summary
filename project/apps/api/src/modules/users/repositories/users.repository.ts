@@ -21,6 +21,14 @@ export class UsersRepository implements IUsersRepository {
       .executeTakeFirstOrThrow();
   }
 
+  async findById(id: string): Promise<User | undefined> {
+    return db
+      .selectFrom('User')
+      .selectAll()
+      .where('id', '=', id)
+      .executeTakeFirst();
+  }
+
   async findByEmail(email: string): Promise<User | undefined> {
     return db
       .selectFrom('User')

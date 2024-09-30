@@ -1,29 +1,41 @@
 import { UsersService } from './users.service';
 import { MemoryUsersRepository } from './repositories/memory-users.repository';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { JwtService } from '@nestjs/jwt';
 
 const STRONG_PASSWORD = 'Abcd123@';
 
 describe('UsersService', () => {
   let usersService: UsersService;
+  let authenticationService: AuthenticationService;
+  let usersRepository: MemoryUsersRepository;
 
   beforeEach(async () => {
-    usersService = new UsersService(new MemoryUsersRepository());
+    usersRepository = new MemoryUsersRepository();
+    authenticationService = new AuthenticationService(
+      usersRepository,
+      new JwtService({ secret: 'secret' }),
+    );
+    usersService = new UsersService(usersRepository, authenticationService);
   });
 
   describe('register', () => {
     describe('When user Register', () => {
-      it('should return a user', async () => {
-        const user = await usersService.register({
-          email: 'test@test.com',
-          name: 'Test',
-          password: STRONG_PASSWORD,
-        });
+      it('should return access token, refresh token and user', async () => {
+        const { accessToken, refreshToken, user } = await usersService.register(
+          {
+            email: 'test@test.com',
+            name: 'Test',
+            password: STRONG_PASSWORD,
+          },
+        );
 
+        expect(accessToken).toBeDefined();
+        expect(refreshToken).toBeDefined();
         expect(user).toBeDefined();
-        expect(user.id).toBeDefined();
       });
       it('should hava a role', async () => {
-        const user = await usersService.register({
+        const { user } = await usersService.register({
           email: 'test@test.com',
           name: 'Test',
           password: STRONG_PASSWORD,
@@ -32,7 +44,7 @@ describe('UsersService', () => {
         expect(user.role).toBeDefined();
       });
       it('should not return the password', async () => {
-        const user = await usersService.register({
+        const { user } = await usersService.register({
           email: 'test@test.com',
           name: 'Test',
           password: STRONG_PASSWORD,

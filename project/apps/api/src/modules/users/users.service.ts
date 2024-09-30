@@ -1,15 +1,21 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { validateIfPasswordIsStrong } from '@repo/utils';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { User } from '~/db/types';
 import { UsersRepository } from './repositories/users.repository';
 import bcrypt from 'bcrypt';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { RegisterUserResponseDto } from './dto/register-user-response.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly authenticationService: AuthenticationService,
+  ) {}
 
-  async register(registerUserDto: RegisterUserDto): Promise<User> {
+  async register(
+    registerUserDto: RegisterUserDto,
+  ): Promise<RegisterUserResponseDto> {
     const { email, password } = registerUserDto;
 
     const passwordIsStrong = validateIfPasswordIsStrong(password);
@@ -35,15 +41,25 @@ export class UsersService {
       role: 'USER',
     });
 
+    const { accessToken, refreshToken } =
+      await this.authenticationService.signIn({
+        email: registerUserDto.email,
+        password: registerUserDto.password,
+      });
+
     // We do a copy of the user to avoid exposing the password and avoid removing
     // password from memory repository
-    const response = {
+    const userResponse = {
       ...user,
     };
 
     // @ts-expect-error this is a private field
-    delete response.password;
+    delete userResponse.password;
 
-    return response;
+    return {
+      accessToken,
+      refreshToken,
+      user: userResponse,
+    };
   }
 }

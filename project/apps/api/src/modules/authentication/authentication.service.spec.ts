@@ -15,16 +15,18 @@ describe('AuthenticationService', () => {
 
   beforeEach(async () => {
     usersRepository = new MemoryUsersRepository();
-    usersService = new UsersService(usersRepository);
     authenticationService = new AuthenticationService(
       usersRepository,
       new JwtService({ secret: 'secret' }),
     );
-    user = await usersService.register({
+    usersService = new UsersService(usersRepository, authenticationService);
+    const registerResponse = await usersService.register({
       email: 'test@test.com',
       name: 'Test',
       password: STRONG_PASSWORD,
     });
+
+    user = registerResponse.user;
   });
 
   describe('signIn', () => {

@@ -6,10 +6,11 @@ It is also possible to ban a user from a workspace
 # Technologies
 
 - Turbo Repo
+- Docker
 - API
   - NestJS
   - [Kysely](https://kysely.dev) ORM with Prisma for Schema management
-  - SQLite
+  - PostgreSQL
   - Crypto for encryption
 - Web
   - [Next.js 14](https://nextjs.org/)
@@ -47,7 +48,6 @@ Represents a workspace which users can post and/or read other users posts
 | --------- | ------ | ------------------------------ |
 | `id`      | UUID   | Unique identifier              |
 | `name`    | String | Full name of the Workspace     |
-| `slug`    | String | slug of the workspace (Unique) |
 | `ownerId` | UUID   | User ID of the workspace owner |
 
 ## Workspace Role
@@ -64,23 +64,24 @@ Represents a role for a workspace
 
 Indicates what type of membership a user has in a workspace
 
-| Field         | Type | Description                           |
-| ------------- | ---- | ------------------------------------- | -------- |
-| `id`          | UUID | Unique identifier                     |
-| `userId`      | UUID | User ID                               |
-| `workspaceId` | UUID | workspace ID                          |
-| `roleId`      | UUID | Which role user has in this workspace | nullable |
+| Field         | Type            | Description                           |
+| ------------- | --------------- | ------------------------------------- |
+| `id`          | UUID            | Unique identifier                     |
+| `userId`      | UUID            | User ID                               |
+| `workspaceId` | UUID            | workspace ID                          |
+| `roleId`      | UUID (Nullable) | Which role user has in this workspace |
 
 ## Workspace Policies
 
 Indicates the role permissions for the workspace
 
-| Field         | Type   | Description                 |
-| ------------- | ------ | --------------------------- | -------- |
-| `id`          | UUID   | Unique identifier           |
-| `workspaceId` | UUID   | workspace ID                |
-| `roleId`      | UUID   | Ex: Role Id                 | nullable |
-| `permissions` | String | Ex: create-Post,remove-Post |
+| Field         | Type            | Description                  |
+| ------------- | --------------- | ---------------------------- |
+| `id`          | UUID            | Unique identifier            |
+| `workspaceId` | UUID            | workspace ID                 |
+| `roleId`      | UUID (Nullable) | Ex: Role Id                  |
+| `domain`      | string          | Ex: Post                     |
+| `permissions` | String          | Ex: get,create,update,delete |
 
 ## Workspace Post
 
@@ -110,18 +111,14 @@ Posts from workspace
 
 ## Business Rules
 
-- User must have one of the following roles: ADMIN, PRO_USER, USER
-- Dont return the password in the response
-- User can register using email and password.
+- [x] User must have one of the following roles: ADMIN, PRO_USER, USER
+- [x] Dont return the password in the response
+- [x] User can register using email and password.
 - Users must update their passwords at least once every 30 days. The system should restrict access to certain features if the password is older than 30 days.\*\*
 - Users nearing password expiry should be notified at regular intervals (e.g., one week before expiry and one day before expiry).\*\*
-- Users can create new workspaces.
-- When a user creates a workspace he will have a workspace membership record in the database with null roleId and owner true.
+- [x] Users can create new workspaces.
 - Workspace Owners can set workspace policies for each user role.
-- When a workspace is created it must be created a workspace policy with null roleId with default permissions.
-- User cant create a workspace policy with empty roleId
-- When creating a Workspace Role it must create a policy that is duplicated with the default permissions
-- It is not possible to remove the default workspace policy (the one with null roleId)
+- [x] When a workspace is created it must be created a workspace policy with null roleId with default permissions.
 - Users can subscribe to a workspace unless they are banned.
 - When a user subscribe to a workspace he will have a workspace membership record in the database with null roleId.
 - Users can create, read, update, and delete posts in a workspace, based on their role and workspace policies.

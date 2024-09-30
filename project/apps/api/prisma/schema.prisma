@@ -28,6 +28,19 @@ enum Role {
   USER
 }
 
+enum WorkspaceDomain {
+  Post
+  Ban
+}
+
+enum WorkspacePermission {
+  manage
+  create
+  get
+  update
+  delete
+}
+
 model User {
   id        String   @id  
   name      String
@@ -48,7 +61,6 @@ model Workspace {
   id        String   @id  
   ownerId   String
   name      String
-  slug      String   @unique
   /// @kyselyType(Date)
   createdAt DateTime 
   /// @kyselyType(Date)
@@ -69,26 +81,28 @@ model WorkspaceRole {
   updatedAt DateTime  
   workspace Workspace @relation(fields: [workspaceId], references: [id])
   permissions WorkspacePolicy[]
+  members WorkspaceMembership[]
 }
 
 model WorkspaceMembership {
   id        String   @id  
   userId    String
   workspaceId String
-  roleId    String
+  roleId    String?
   /// @kyselyType(Date)
   createdAt DateTime 
   /// @kyselyType(Date)
   updatedAt DateTime  
   workspace Workspace @relation(fields: [workspaceId], references: [id])
   user User @relation(fields: [userId], references: [id])
+  role WorkspaceRole? @relation(fields: [roleId], references: [id])
 }
 
 model WorkspacePolicy {
   id        String   @id  
   workspaceId String
   roleId   String? 
-  domain String // POST
+  domain WorkspaceDomain // POST
   permissions String? // manage, create, get, update, delete
   /// @kyselyType(Date)
   createdAt DateTime 

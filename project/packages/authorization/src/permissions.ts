@@ -39,3 +39,7 @@ export const permissions: Record<Role, PermissionsByRole> = {
     can("create", "Workspace");
   },
 };
+
+export const workspaceDefaultPermissions: Record<string, string[]> = {
+  Post: ["get", "create"],
+};

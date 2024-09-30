@@ -11,6 +11,7 @@ import { permissions } from "./permissions";
 
 export * from "./models";
 export * from "./roles";
+export * from "./permissions";
 
 const appAbilitiesSchema = z.union([
   userSubject,

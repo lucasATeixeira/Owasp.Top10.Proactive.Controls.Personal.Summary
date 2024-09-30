@@ -4,6 +4,8 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthenticationGuard } from './modules/authentication/authentication.guard';
+import { WorkspacesModule } from './modules/workspaces/workspaces.module';
+import { WorkspacePoliciesModule } from './modules/workspace-policies/workspace-policies.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { AuthenticationGuard } from './modules/authentication/authentication.gua
       secret: process.env.JWT_SECRET || 'secret',
       signOptions: { expiresIn: '60s' },
     }),
+    WorkspacesModule,
+    WorkspacePoliciesModule,
   ],
   providers: [
     {

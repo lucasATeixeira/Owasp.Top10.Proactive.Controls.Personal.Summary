@@ -55,6 +55,7 @@ model User {
   updatedAt DateTime  
   workspaces Workspace[]
   memberships WorkspaceMembership[]
+  posts Post[]
 }
 
 model Workspace {
@@ -69,6 +70,7 @@ model Workspace {
   roles WorkspaceRole[]
   members WorkspaceMembership[] 
   policies WorkspacePolicy[]
+  posts Post[]
 }
 
 model WorkspaceRole {
@@ -110,4 +112,17 @@ model WorkspacePolicy {
   updatedAt DateTime  
   workspace Workspace @relation(fields: [workspaceId], references: [id])
   role WorkspaceRole? @relation(fields: [roleId], references: [id])
+}
+
+model Post {
+  id        String   @id
+  authorId  String
+  workspaceId String
+  content   String
+  /// @kyselyType(Date)
+  createdAt DateTime 
+  /// @kyselyType(Date)
+  updatedAt DateTime
+  author User @relation(fields: [authorId], references: [id])
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
 }

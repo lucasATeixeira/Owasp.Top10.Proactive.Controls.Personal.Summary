@@ -6,6 +6,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthenticationGuard } from './modules/authentication/authentication.guard';
 import { WorkspacesModule } from './modules/workspaces/workspaces.module';
 import { WorkspacePoliciesModule } from './modules/workspace-policies/workspace-policies.module';
+import { WorkspaceMembershipsModule } from './modules/workspace-memberships/workspace-memberships.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { WorkspacePoliciesModule } from './modules/workspace-policies/workspace-
     }),
     WorkspacesModule,
     WorkspacePoliciesModule,
+    WorkspaceMembershipsModule,
   ],
   providers: [
     {

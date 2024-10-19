@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { postSchema, userSchema, workspaceSchema } from "./models";
+import {
+  postSchema,
+  userSchema,
+  workspaceMembershipSchema,
+  workspaceSchema,
+} from "./models";
 
 export const userSubject = z.tuple([
   z.union([
@@ -38,3 +43,14 @@ export const postSubject = z.tuple([
 ]);
 
 export type PostSubject = z.infer<typeof postSubject>;
+
+export const workspaceMembershipSubject = z.tuple([
+  z.union([
+    z.literal("manage"),
+    z.literal("create"),
+    z.literal("get"),
+    z.literal("update"),
+    z.literal("delete"),
+  ]),
+  z.union([z.literal("WorkspaceMembership"), workspaceMembershipSchema]),
+]);

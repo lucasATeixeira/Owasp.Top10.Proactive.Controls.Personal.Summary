@@ -25,6 +25,15 @@ export const workspaceSchema = z.object({
 
 export type Workspace = z.infer<typeof workspaceSchema>;
 
+export const workspaceMembershipSchema = z.object({
+  __typename: z.literal("WorkspaceMembership").default("WorkspaceMembership"),
+  id: z.string(),
+  userId: z.string(),
+  workspaceId: z.string(),
+});
+
+export type WorkspaceMembership = z.infer<typeof workspaceMembershipSchema>;
+
 export const postSchema = z.object({
   __typename: z.literal("Post").default("Post"),
   id: z.string(),
